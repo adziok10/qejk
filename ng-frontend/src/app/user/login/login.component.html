@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-sm-6 offset-sm-3 mat-shadow">
+        <form [formGroup]="loginForm">
+            <header class="login-form-title">
+              Log in:
+            </header>
+
+            <mat-form-field>
+                <input matInput placeholder="Enter your login" type="text" formControlName="login" name="login">
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput placeholder="Enter your password" type="password" name="password" formControlName="password">
+            </mat-form-field>
+            <div class="mat-button-wrapper">
+                <button mat-raised-button color="primary" (click)="login()">Login</button>
+            </div>
+            <div class="mat-button-wrapper">
+                <button mat-raised-button [routerLink]="'/register'">Sign up</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span [routerLink]="'/'">Kwejk</span>
+        <span class="example-spacer"></span>
+        <button mat-button (click)="backToPreviousPage()"><--back</button>
+        <ng-container *ngIf="isLoggedIn; else login">
+            <button mat-button [routerLink]="['/mem/add']">Add new meme</button>
+            <button mat-button (click)="logout()">Logout</button>
+        </ng-container>
+        <ng-template #login>
+            <button mat-button [routerLink]="['/login']">Login</button>
+        </ng-template>
+    </mat-toolbar-row>
+</mat-toolbar>

@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-sm-6 offset-sm-3 mat-shadow">
+        <form [formGroup]="memForm">
+            <header class="login-form-title">
+                Add new meme:
+            </header>
+
+            <mat-form-field>
+                <input matInput placeholder="Enter title" type="text" formControlName="title" name="title">
+            </mat-form-field>
+
+            <mat-form-field>
+                <textarea matInput placeholder="Enter description" type="text" name="description" formControlName="description"></textarea>
+            </mat-form-field>
+            <input type="file" accept="image/*" id="file" name="mem" (change)="processFile($event.target.files)">
+            <div class="mat-button-wrapper">
+                <button [disabled]="btnIsDisabled" mat-raised-button color="primary" (click)="upload()">Upload</button>
+            </div>
+        </form>
+    </div>
+</div>

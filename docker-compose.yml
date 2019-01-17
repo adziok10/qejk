@@ -1,0 +1,30 @@
+version: '3'
+services:
+  # web:
+  #   build: ./ng-frontend
+  #   container_name: "kwejk_web"
+  #   ports:
+  #   - "80:4200"
+  #   links:
+  #   - node
+  #   volumes:
+  #   - "C:/Users/karwo/OneDrive/Pulpit/dev/kwejk/ng-frontend/dist/ng-frontend:/usr/share/nginx/html"
+  #   - "C:/Users/karwo/OneDrive/Pulpit/dev/kwejk/ng-frontend/dist/ng-frontend/nginx:/etc/nginx"
+  node:
+    build: ./backend
+    container_name: "kwejk_api"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./backend:/home/node/app
+    ports:
+    - "3030:3000"
+    depends_on:
+    - mongo
+  mongo:
+    image: mongo
+    container_name: "kwejk_db"
+    command: mongod --port 27017
+    ports: 
+    - "27017:27017"

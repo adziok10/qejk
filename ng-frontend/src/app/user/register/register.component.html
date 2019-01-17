@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-sm-6 offset-sm-3 mat-shadow">
+      <form [formGroup]="registerForm">
+          <header class="login-form-title">
+            Sing up:
+          </header>
+
+          <mat-form-field>
+              <input matInput placeholder="Enter your login" type="text" formControlName="login" name="login">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput placeholder="Enter your email" type="email" formControlName="email" name="email">
+        </mat-form-field>
+
+          <mat-form-field>
+              <input matInput placeholder="Enter your password" type="password" name="password" formControlName="password">
+          </mat-form-field>
+
+          <mat-form-field>
+              <input matInput placeholder="Repeat your password" type="password" name="password2" formControlName="password2">
+          </mat-form-field>
+
+          <div class="mat-button-wrapper">
+              <button mat-raised-button color="primary" (click)="signUp()">Login</button>
+          </div>
+
+          <div class="mat-button-wrapper">
+              <button mat-raised-button [routerLink]="'/login'">Sign in</button>
+          </div>
+      </form>
+  </div>
+</div>
