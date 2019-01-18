@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "dev": "nodemon -L --inspect=0.0.0.0:3030 app.js",
-    "start": "node app.js"
+    "start": "node app.js --bind 0.0.0.0:$PORT"
   },
   "author": "Karwowski Adrian",
   "license": "ISC",

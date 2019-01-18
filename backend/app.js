@@ -28,12 +28,14 @@ app.use((req, res, next) => {
 
 
 mongoose.Promise = Promise;  
-mongoose.connect("mongodb://mongo:27017/kwejk", (err) => {
-    if(!err)    
-        console.log('---> Connect to mongo db');
-    else{
+mongoose.connect(process.env.MONGODB_URI  || 'mongodb://mongo:27017/kwejk', (err) => {
+    if (err) {
+        console.log(err);
         console.log('---> Can`t connect to mongo db');
         process.exit(1);
+    }
+    else {
+        console.log('---> Connect to mongo db');
     }
 });
 
