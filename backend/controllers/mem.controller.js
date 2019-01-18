@@ -69,7 +69,13 @@ router.get('/:id', (req, res) => {
 });
 
 router.get('/', (req, res) => {
-    Mem.find({}).select('name _id description title owner link createAt').sort({ createAt: 'desc' }).then(mem => {
+    let memesToSkip;
+    if (req.param('page')){
+        memesToSkip = 10 * req.param('page');
+    } else {
+        memesToSkip = 0;
+    }
+    Mem.find({}).select('name _id description title owner link createAt').sort({ createAt: 'desc' }).limit(10).skip(memesToSkip).then(mem => {
         if (mem.length == 0)
             return res.status(404).json({
                 message: 'No memes here'
