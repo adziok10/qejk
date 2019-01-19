@@ -10,7 +10,7 @@
                     <mat-card-title>{{mem.title}}</mat-card-title>
                     <mat-card-subtitle>{{mem.owner}}</mat-card-subtitle>
                 </mat-card-header>
-                <img mat-card-image [src]="base_url + '/' + mem.link" alt="{{mem.title}}">
+                <img mat-card-image [src]="mem.isAbsoluteLink(mem.link) ? mem.link : base_url + '/' + mem.link" alt="{{mem.title}}">
                 <mat-card-content>
                   <p>
                     <mat-card-subtitle>{{mem.createAt}}</mat-card-subtitle>

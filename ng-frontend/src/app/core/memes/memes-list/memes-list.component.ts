@@ -1,10 +1,9 @@
 import {
-    Component,
-    OnInit
+    Component
 } from '@angular/core';
 import {
     MemesApiService
-} from '../../memes-api.service';
+} from '../../../services/memes-api.service';
 import {
     Mem
 } from '../mem.model';
@@ -15,17 +14,19 @@ import { environment } from '../../../../environments/environment';
     templateUrl: './memes-list.component.html',
     styleUrls: ['./memes-list.component.sass']
 })
-export class MemesListComponent implements OnInit {
+export class MemesListComponent {
 
-    memesArray: Mem[];
+    memesArray: Array<Mem> = [];
     base_url: String;
     constructor(private memesApi: MemesApiService) {
-        this.memesApi.getMemes().subscribe(memes => {
-            this.memesArray = memes;
+        this.memesApi.getMemes().subscribe( memes => {
+            const memesArrayHelper = [];
+            memes.map( mem => {
+                memesArrayHelper.push(new Mem(mem._id, mem.title, mem.description, mem.owner, mem.createAt, mem.link));
+            });
+            this.memesArray = memesArrayHelper;
         });
         this.base_url = environment.base_api_url;
     }
-
-    ngOnInit() {}
 
 }

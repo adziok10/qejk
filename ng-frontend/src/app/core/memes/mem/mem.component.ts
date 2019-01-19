@@ -1,13 +1,12 @@
 import {
-    Component,
-    OnInit
+    Component
 } from '@angular/core';
 import {
     Mem
 } from '../mem.model';
 import {
     MemesApiService
-} from '../../memes-api.service';
+} from '../../../services/memes-api.service';
 import {
     Router,
     ActivatedRoute,
@@ -25,11 +24,12 @@ import {
     templateUrl: './mem.component.html',
     styleUrls: ['./mem.component.sass']
 })
-export class MemComponent implements OnInit {
+export class MemComponent {
 
-    mem: Mem = new Mem;
+    mem: Mem;
     id: String;
     base_url: String;
+    isDataAvailable = false;
 
     constructor(private memesApi: MemesApiService, private router: Router, private route: ActivatedRoute, private snack: SnackbarService) {
         this.route.params
@@ -38,7 +38,8 @@ export class MemComponent implements OnInit {
                     this.id = params['id'];
                     this.memesApi.getMeme(this.id).subscribe((mem: Mem) => {
                         if (mem) {
-                            this.mem = mem;
+                            this.mem = new Mem(mem._id, mem.title, mem.description, mem.owner, mem.createAt, mem.link);
+                            this.isDataAvailable = true;
                         } else {
                             this.router.navigateByUrl('/');
                             this.snack.open('No meme on this url', 'Close', 3000);
@@ -48,7 +49,5 @@ export class MemComponent implements OnInit {
             );
           this.base_url = environment.base_api_url;
     }
-
-    ngOnInit() {}
 
 }

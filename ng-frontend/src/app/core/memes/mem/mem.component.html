@@ -1,15 +1,15 @@
 <div class="row">
     <div class="col-md-8 offset-md-2 mat-shadow">
         <h1 class="text-center mem-header">
-            {{mem.title}}
+            {{isDataAvailable ? mem.title : 'Mem title' }}
         </h1>
-        <div class="mem-item">
+        <div class="mem-item" *ngIf="isDataAvailable">
             <mat-card class="example-card">
                 <mat-card-header>
                     <div mat-card-avatar class="example-header-image"></div>
                     <mat-card-subtitle>{{mem.owner}}</mat-card-subtitle>
                 </mat-card-header>
-                <img mat-card-image [src]="base_url + '/' + mem.link" alt="{{mem.title}}">
+                <img mat-card-image [src]="mem.isAbsoluteLink(mem.link) ? mem.link : base_url + '/' + mem.link" alt="{{mem.title}}">
                 <mat-card-content>
                   <p>
                     <mat-card-subtitle>{{mem.createAt}}</mat-card-subtitle>

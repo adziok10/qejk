@@ -14,7 +14,7 @@ import {
 
 import {
     MemesApiService
-} from '../../../memes-api.service';
+} from '../../../../services/memes-api.service';
 import {
     SnackbarService
 } from 'src/app/services/snackbar.service';

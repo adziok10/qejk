@@ -10,7 +10,7 @@ import {
 } from '@angular/common/http';
 import {
     Mem
-} from './memes/mem.model';
+} from '../core/memes/mem.model';
 import {
     Observable
 } from 'rxjs';
@@ -22,11 +22,8 @@ export class MemesApiService {
 
     constructor(private http: HttpClient) {}
 
-    getMemes(): Observable < Mem[] > {
-        const reqt = this.http.get < Mem[] > (environment.base_api_url + '/mem');
-        reqt.subscribe(
-            data => {}
-        );
+    getMemes(): Observable <Array<Mem>> {
+        const reqt = this.http.get <Array<Mem>> (environment.base_api_url + '/mem');
         return reqt;
     }
 
