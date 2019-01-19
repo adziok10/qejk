@@ -5,28 +5,12 @@ const mime = require('mime');
 
 const Mem = require('../models/mem.model');
 const checkAuth = require('../helpers/check-auth.helper');
+const { getStorage, fileFilter } = require('../helpers/image-dest.helper');
 
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './uploads')
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now() + '.' + mime.getExtension(file.mimetype))
-    }
-});
 
-function fileFilter(req, file, cb) {
-
-    console.log(file.mimetype)
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/gif')
-        cb(null, true);
-    else
-        cb(new Error('Not allowed file type'));
-
-}
 
 const upload = multer({
-    storage: storage,
+    storage: getStorage(),
     limits: {
         fileSize: 1024 * 1024 * 5
     },
@@ -75,7 +59,7 @@ router.get('/', (req, res) => {
     } else {
         memesToSkip = 0;
     }
-    Mem.find({}).select('name _id description title owner link createAt').sort({ createAt: 'desc' }).limit(10).skip(memesToSkip).then(mem => {
+    Mem.find({}).select('name _id description title owner link createAt').sort({ createAt: 'desc' }).limit(10).skip(memesToSkip).then( mem => {
         if (mem.length == 0)
             return res.status(404).json({
                 message: 'No memes here'
