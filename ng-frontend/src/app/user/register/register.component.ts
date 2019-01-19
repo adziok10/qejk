@@ -1,17 +1,7 @@
-import {
-    Component,
-    OnInit
-} from '@angular/core';
-import {
-    FormGroup,
-    FormControl,
-    Validators,
-    AbstractControl
-} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import {
-    AuthService
-} from '../../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 
 @Component({
