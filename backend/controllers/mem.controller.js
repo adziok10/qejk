@@ -5,8 +5,7 @@ const mime = require('mime');
 
 const Mem = require('../models/mem.model');
 const checkAuth = require('../helpers/check-auth.helper');
-const { getStorage, fileFilter } = require('../helpers/image-dest.helper');
-
+const { getStorage, fileFilter, imgurSave } = require('../helpers/image-dest.helper');
 
 
 const upload = multer({
@@ -17,8 +16,7 @@ const upload = multer({
     fileFilter: fileFilter
 });
 
-router.post('/', checkAuth,(req, res, next) => { console.log(req.body); next()}, upload.single('mem'), (req, res) => {
-    
+router.post('/', checkAuth, upload.single('mem'), imgurSave, (req, res) => {
     const mem = new Mem({
         title: req.body.title,
         description: req.body.description,
@@ -28,12 +26,12 @@ router.post('/', checkAuth,(req, res, next) => { console.log(req.body); next()},
         link: req.file.path
     });
 
-    console.log('a tu jestem?')
     mem.save().then((data) => {
         return res.status(201).json(data._id);
     }).catch((err) => {
         return res.status(501).json(err);
     });
+    
 });
 
 router.get('/:id', (req, res) => {
