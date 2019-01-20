@@ -1,12 +1,8 @@
-const express = require('express');
-const jwt = require('jsonwebtoken');
-const { body, validationResult } = require('express-validator/check');
-const { sanitize } = require('express-validator/filter');
+import express from 'express';
+import jwt from 'jsonwebtoken';
 
-const router = express.Router();
-const User = require('../models/user.model');
-const config = require('../config/app.config');
-const checkAuth = require('../helpers/check-auth.helper');
+import User from '../models/user.model';
+import config from '../config/app.config';
 
 
 export default class UserController {
