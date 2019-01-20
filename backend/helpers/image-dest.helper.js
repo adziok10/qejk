@@ -4,7 +4,7 @@ const mime = require('mime');
 const imgurUploader = require('imgur-uploader');
 
 module.exports = {
-    getStorage() {
+    getStorage () {
         switch (image_destination) {
             case 'imgur':
             console.log('imgur')
