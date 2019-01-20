@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
 
 
@@ -27,11 +28,7 @@ const MemSchema = new Schema({
         required: true
     }
 });
-MemSchema.pre('save', function() {
-    console.log(this)
-});
 
 const MemModel = mongoose.model('mem', MemSchema);
 
-
-module.exports = MemModel;
+export default MemModel;
