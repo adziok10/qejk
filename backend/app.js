@@ -5,8 +5,10 @@ const morgan = require('morgan');
 const expressValidator = require('express-validator');
 
 const userController = require('./controllers/user.controller');
-const memController = require('./controllers/mem.controller');
-const config = require('./config/app.config');
+const memRouter = require('./routes/mem.routes');
+// const config = require('./config/app.config');
+
+import config from './config/app.config';
 
 const app = express();
 
@@ -40,7 +42,7 @@ mongoose.connect(process.env.MONGODB_URI  || 'mongodb://mongo:27017/kwejk', (err
 });
 
 app.use('/user', userController);
-app.use('/mem', memController);
+app.use('/mem', memRouter);
 
 app.use((req, res, next) => {
     const error = new Error('Not found');

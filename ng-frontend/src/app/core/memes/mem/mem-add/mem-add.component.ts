@@ -51,14 +51,14 @@ export class MemAddComponent {
             this.btnIsDisabled = true;
             this.memApi.sendMeme(val.title, val.description, this.memImage)
                 .subscribe(
-                    (url) => {
+                    url => {
                         this.btnIsDisabled = false;
                         this.snack.open('Mem uploaded corectly', 'Close', 5000);
                         this.router.navigateByUrl('mem/' + url);
                     },
                     err => {
                         this.snack.open(err.error.message, 'Close', 5000);
-                        this.btnIsDisabled = true;
+                        this.btnIsDisabled = false;
                     }
                 );
         }
