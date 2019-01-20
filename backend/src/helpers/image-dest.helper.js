@@ -14,7 +14,7 @@ export const getStorage = () => {
                     cb(null, './../uploads')
                 },
                 filename: function(req, file, cb) {
-                    cb(null, file.fieldname + '-' + Date.now() + '.' + mime.getExtension(file.mimetype))
+                    cb(null, file.fieldname + '-' + Date.now() + '.' + mime.getExtension(file.mimetype));
                 }
             });
             break;
@@ -38,13 +38,16 @@ export const fileFilter = (req, file, cb) => {
     } else {
         cb(new Error('Not allowed file type'));
     }
+
 };
 
 export const imgurSave = async (req, res, next) => {
+
     if (image_destination === 'imgur') {
         try {
 
             const response = await imgurUploader(req.file.buffer, { title: req.body.title }, imgur_ID);
+
             if (response) {
                 req.file.path = response.link;
                 next();
@@ -53,7 +56,7 @@ export const imgurSave = async (req, res, next) => {
         } catch (err) {
             return res.status(500).json(err);
         }
+    } else if (image_destination !== 'imgur') {
+        next();
     }
-
-    next();
 };

@@ -12,7 +12,7 @@ export default class MemController {
             createAt: Date.now(),
             link: req.file.path
         });
-        return res.status(201);
+        
         try {
             const newMem = await mem.save();
             
@@ -23,7 +23,7 @@ export default class MemController {
                 return res.status(501).json(err);
             }
 
-            return res.status(500).send(err);
+            return res.status(500).json(err);
 
         }
 
@@ -61,7 +61,7 @@ export default class MemController {
             return res.json(memesArray);
             
         } catch (err) {
-            return res.status(500).send(err);
+            return res.status(500).json(err);
         }
     }
 
