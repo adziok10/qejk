@@ -22,4 +22,5 @@ EXPOSE $PORT
 
 # CMD node app.js --bind 0.0.0.0:$PORT
 # dev start (nodemon)
-CMD npm run dev
+# CMD npm run dev
+CMD npm start

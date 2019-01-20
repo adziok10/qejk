@@ -10,7 +10,7 @@ const router = express.Router();
 const upload = multer({
     storage: getStorage(),
     limits: {
-        fileSize: 1024 * 1024 * 5
+        fileSize: process.env.image_max_size
     },
     fileFilter: fileFilter
 });

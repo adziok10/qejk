@@ -2,12 +2,13 @@ import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
+import cors from 'cors';
+import 'dotenv/config';
 
 import router from './src/routers/index';
-import config from './src/config/app.config';
 
 const app = express();
-
+const port = process.env.PORT || 3000;
 app.use(morgan('dev'));
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded());
@@ -18,16 +19,16 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Headers', '*');
     if(req.method === 'OPTIONS') {
         res.header('Access-Controll-Allow-Methods', 'PUT, POST, GET, PATCH, DELETE');
-        return res.status(200);
+        return res.status(200).json({});
     }
     next();
 });
 
+// app.use(cors());
 
 mongoose.Promise = Promise;  
 mongoose.connect(process.env.MONGODB_URI  || 'mongodb://mongo:27017/kwejk', (err) => {
     if (err) {
-        console.log(err);
         console.log('---> Can`t connect to mongo db');
         process.exit(1);
     }
@@ -53,6 +54,6 @@ app.use((error, req, res, next) => {
 });
 
 
-app.listen(config.port, () => {
-    console.log('Start on port: ' + config.port);
+app.listen(port, () => {
+    console.log('Start on port: ' + port);
 });

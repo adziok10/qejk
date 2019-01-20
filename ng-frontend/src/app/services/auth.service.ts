@@ -20,10 +20,11 @@ export class AuthService {
         reqt.subscribe(
             data => {
                 console.log(data);
-              this.setSession(data);
+                if (data) {
+                    this.setSession(data);
+                }
             }
         );
-        this.loggedInSubject.next(true);
         return reqt;
     }
 
@@ -32,6 +33,7 @@ export class AuthService {
 
         localStorage.setItem('id_token', authResult.token);
         localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()) );
+        this.loggedInSubject.next(true);
     }
 
     logout() {

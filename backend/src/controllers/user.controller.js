@@ -1,8 +1,7 @@
-import express from 'express';
 import jwt from 'jsonwebtoken';
 
 import User from '../models/user.model';
-import config from '../config/app.config';
+
 
 
 export default class UserController {
@@ -30,7 +29,7 @@ export default class UserController {
             if (!user) {
 
                 return res.status(401).json({
-                    'message': 'Bad login or password'
+                    'message': 'Bad login or password1'
                 })
 
             } else if (user) {
@@ -38,7 +37,7 @@ export default class UserController {
                 if (!user.isValidPassword(req.body.password)) {
 
                     return res.status(401).json({
-                        'message': 'Bad login or password'
+                        'message': 'Bad login or password2'
                     })
 
                 } else {
@@ -47,14 +46,14 @@ export default class UserController {
                         id: user._id,
                         name: user.login
                     };
-                    const token = jwt.sign(payload, config.jwt_secret, {
-                        expiresIn: config.jwt_expires_in
+                    const token = jwt.sign(payload, process.env.jwt_secret, {
+                        expiresIn: process.env.jwt_expires_in
                     });
 
                     return res.status(200).json({
                         'status': 'success',
                         'token': token,
-                        'expiresIn': config.jwt_expires_in
+                        'expiresIn': process.env.jwt_expires_in
                     });
 
                 }

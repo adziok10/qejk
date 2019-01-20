@@ -1,4 +1,3 @@
-import { image_destination, imgur_ID } from '../config/app.config';
 import multer from 'multer';
 import mime from 'mime';
 import imgurUploader from 'imgur-uploader';
@@ -7,7 +6,7 @@ export const getStorage = () => {
 
     let response;
 
-    switch (image_destination) {
+    switch (process.env.image_destination) {
         case 'node':
             response = multer.diskStorage({
                 destination: function(req, file, cb) {
@@ -43,16 +42,16 @@ export const fileFilter = (req, file, cb) => {
 
 export const imgurSave = async (req, res, next) => {
 
-    if (image_destination === 'imgur') {
+    if (process.env.image_destination === 'imgur') {
         try {
-
-            const response = await imgurUploader(req.file.buffer, { title: req.body.title }, imgur_ID);
+            console.log(process.env.image_destination)
+            const response = await imgurUploader(req.file.buffer, { title: req.body.title }, process.env.imgur_ID);
 
             if (response) {
                 req.file.path = response.link;
                 next();
             }
-
+            return res.status(501).json({'error': 'Server error'});
         } catch (err) {
             return res.status(500).json(err);
         }

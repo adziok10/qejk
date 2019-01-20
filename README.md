@@ -24,3 +24,8 @@ ng build
 i odpalenia aplikacji ręcznie.
 
 
+W .env ustawiamy miejsce przechowywania plików
+
+```
+'imgur' or 'node' (save on '/uploads' in your app folder)
+```

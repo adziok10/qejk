@@ -1,3 +1,5 @@
 node_modules
 config/app.config.js
 uploads/*
+.env
+dist
