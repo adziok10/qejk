@@ -2,7 +2,6 @@ import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
-import expressValidator from 'express-validator';
 
 import router from './src/routers/index';
 import config from './src/config/app.config';
@@ -19,7 +18,7 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Headers', '*');
     if(req.method === 'OPTIONS') {
         res.header('Access-Controll-Allow-Methods', 'PUT, POST, GET, PATCH, DELETE');
-        return res.status(200).json({});
+        return res.status(200);
     }
     next();
 });
