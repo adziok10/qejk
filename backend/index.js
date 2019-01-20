@@ -1,14 +1,11 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const morgan = require('morgan');
-const expressValidator = require('express-validator');
+import express from 'express';
+import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
+import morgan from 'morgan';
+import expressValidator from 'express-validator';
 
-const userController = require('./controllers/user.controller');
-const memRouter = require('./routes/mem.routes');
-// const config = require('./config/app.config');
-
-import config from './config/app.config';
+import router from './src/routers/index';
+import config from './src/config/app.config';
 
 const app = express();
 
@@ -16,7 +13,6 @@ app.use(morgan('dev'));
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
-app.use(expressValidator());
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -41,8 +37,8 @@ mongoose.connect(process.env.MONGODB_URI  || 'mongodb://mongo:27017/kwejk', (err
     }
 });
 
-app.use('/user', userController);
-app.use('/mem', memRouter);
+app.use(router);
+
 
 app.use((req, res, next) => {
     const error = new Error('Not found');
@@ -60,5 +56,5 @@ app.use((error, req, res, next) => {
 
 
 app.listen(config.port, () => {
-    console.log('hej port ' + config.port);
+    console.log('Start on port: ' + config.port);
 });

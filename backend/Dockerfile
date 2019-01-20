@@ -1,6 +1,6 @@
-FROM node:10
+FROM node:8.15
 
-RUN npm install -g nodemon yarn
+RUN npm install -g nodemon yarn babel-cli
 
 RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
 
@@ -8,7 +8,7 @@ WORKDIR /home/node/app
 
 COPY package*.json ./
 
-COPY yarn.lock ./
+# COPY yarn.lock ./
 
 RUN yarn
 

@@ -5,21 +5,22 @@ const imgurUploader = require('imgur-uploader');
 
 module.exports = {
     getStorage () {
+        console.log(image_destination)
         switch (image_destination) {
-            case 'imgur':
-            console.log('imgur')
-                return multer.memoryStorage();
-                //break
             case 'node':
+                console.log('tu>') 
                 return multer.diskStorage({
                     destination: function(req, file, cb) {
-                        cb(null, './uploads')
+                        cb(null, './../uploads')
                     },
                     filename: function(req, file, cb) {
                         cb(null, file.fieldname + '-' + Date.now() + '.' + mime.getExtension(file.mimetype))
                     }
                 });
-                //break
+            break;
+            case 'imgur':
+                return multer.memoryStorage();
+            break;
             default:
                 console.log('Select image destination');
                 console.log('App closed');
@@ -29,11 +30,11 @@ module.exports = {
     },
     fileFilter(req, file, cb) {
 
-        if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/gif')
+        if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/gif') {
             cb(null, true);
-        else
+        } else {
             cb(new Error('Not allowed file type'));
-    
+        }
     },
     imgurSave(req, res, next)  {
         if(image_destination === 'imgur'){
@@ -42,8 +43,9 @@ module.exports = {
                 next();
             })
             .catch((err) => {
-                res.status(500).json(err);
+                return res.status(500).json(err);
             });
         }
+        next();
     }
 };

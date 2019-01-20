@@ -18,8 +18,8 @@ export class RegisterComponent implements OnInit {
         private snack: SnackbarService) {
         this.registerForm = new FormGroup({
             email: new FormControl(null, [Validators.email, Validators.required]),
-            login: new FormControl(null, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]),
-            password: new FormControl(null, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]),
+            login: new FormControl(null, [Validators.required, Validators.minLength(5), Validators.maxLength(255)]),
+            password: new FormControl(null, [Validators.required, Validators.minLength(5), Validators.maxLength(255)]),
             password2: new FormControl(null, this.passValidator)
         });
     }

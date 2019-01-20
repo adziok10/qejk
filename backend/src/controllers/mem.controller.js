@@ -22,7 +22,8 @@ export default class MemController {
             if (err.name === 'MongoError' && err.code === 11000) {
                 return res.status(501).json(err);
             }
-            res.status(500).send(err);
+
+            return res.status(500).send(err);
 
         }
 
@@ -60,7 +61,7 @@ export default class MemController {
             return res.json(memesArray);
             
         } catch (err) {
-            res.status(500).send(err);
+            return res.status(500).send(err);
         }
     }
 

@@ -15,7 +15,7 @@ services:
     container_name: "kwejk_api"
     working_dir: /home/node/app
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - PORT=3000
     volumes:
       - ./backend:/home/node/app
