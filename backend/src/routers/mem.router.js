@@ -15,7 +15,7 @@ const upload = multer({
     fileFilter: fileFilter
 });
 
-router.post('/', checkAuth, upload.single('mem'), imgurSave, asyncMiddleware(MemController.save));
+router.post('/', checkAuth, upload.single('mem'), imgurSave, asyncMiddleware(MemController.saveMem));
 
 router.get('/:id', asyncMiddleware(MemController.getMem));
 

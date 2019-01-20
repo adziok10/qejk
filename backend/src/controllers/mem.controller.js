@@ -2,7 +2,7 @@ import Mem from '../models/mem.model';
 
 export default class MemController {
 
-    static async save(req, res) {
+    static async saveMem (req, res) {
 
         const mem = new Mem({
             title: req.body.title,
@@ -12,10 +12,10 @@ export default class MemController {
             createAt: Date.now(),
             link: req.file.path
         });
-
+        return res.status(201);
         try {
             const newMem = await mem.save();
-
+            
             return res.status(201).json(newMem._id);
         } catch (err) {
 
@@ -29,7 +29,7 @@ export default class MemController {
 
     }
 
-    static async getMem(req, res) {
+    static async getMem (req, res) {
         try {
             const mem = await Mem.findOne({
                     _id: req.params.id
@@ -48,7 +48,7 @@ export default class MemController {
         }
     }
 
-    static async getAllMemes(req, res) {
+    static async getAllMemes (req, res) {
         try {
             const memesToSkip = req.param('page') ? req.param('page') * 10 : 0;
             const memesArray = await Mem.find({}).select('name _id description title owner link createAt').sort({ createAt: 'desc' }).limit(10).skip(memesToSkip);
